@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <title>阿文｜00后AI教育创业者 & IP全案操盘手</title>
 <meta name="theme-color" content="#161823">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- 移除外部字体以降低首屏阻塞，使用系统字体栈即可 -->
 <style>
 /* ========== 基础与主题 ========== */
 :root{
@@ -23,13 +23,9 @@
 *{box-sizing:border-box}
 html,body{
   margin:0;
-  background: 
-    radial-gradient(circle at 20% 80%, rgba(106,166,255,.15) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(168,121,255,.15) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(19,227,178,.1) 0%, transparent 50%),
-    linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 50%, var(--bg-3) 100%);
+  background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 50%, var(--bg-3) 100%);
   color:var(--text);
-  font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
   font-size: 16px;
   line-height: 1.7;
   overflow-x: hidden;
@@ -38,94 +34,21 @@ html,body{
 a{color:inherit;text-decoration:none;transition: all var(--animation-speed) ease;}
 img{display:block;max-width:100%;}
 
-/* 粒子背景效果 */
-.particles {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: -1;
-}
+/* 关闭粒子背景以降低合成/重绘成本 */
 
-.particle {
-  position: absolute;
-  background: linear-gradient(45deg, var(--brand), var(--brand2));
-  border-radius: 50%;
-  opacity: 0.6;
-  animation: float 6s ease-in-out infinite;
-}
+/* 移除滚动视差占位 */
 
-.particle:nth-child(odd) {
-  animation-delay: -2s;
-  background: linear-gradient(45deg, var(--accent), var(--success));
-}
-
-.particle:nth-child(3n) {
-  animation-delay: -4s;
-  background: linear-gradient(45deg, var(--warning), var(--brand));
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33% { transform: translateY(-30px) rotate(120deg); }
-  66% { transform: translateY(-15px) rotate(240deg); }
-}
-
-/* 滚动视差效果 */
-.parallax {
-  transform: translateZ(0);
-  will-change: transform;
-}
-
-/* 背景动效气泡 */
-.bg-blur:before,.bg-blur:after{
-  content:"";position:fixed;inset:auto;z-index:-1;filter:blur(80px);opacity:.7;
-  width:400px;height:400px;border-radius:50%;
-  background:radial-gradient(closest-side,rgba(106,166,255,.6),transparent);
-  animation: pulse 8s ease-in-out infinite;
-}
-.bg-blur:before{
-  left:-100px;top:-100px;
-  animation-delay: 0s;
-}
-.bg-blur:after{
-  right:-120px;bottom:-140px;
-  background:radial-gradient(closest-side,rgba(168,121,255,.6),transparent);
-  animation-delay: 4s;
-}
-
-/* 额外的背景装饰 */
-.bg-blur::before {
-  animation: float-large 12s ease-in-out infinite;
-}
-
-.bg-blur::after {
-  animation: float-large 12s ease-in-out infinite reverse;
-}
-
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.7; }
-  50% { transform: scale(1.1); opacity: 0.9; }
-}
-
-@keyframes float-large {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(20px, -30px) scale(1.05); }
-  50% { transform: translate(-10px, -60px) scale(0.95); }
-  75% { transform: translate(-30px, -30px) scale(1.02); }
-}
+/* 移除背景模糊与大范围动画 */
 
 /* 容器 */
 .wrap{max-width:720px;margin:0 auto;padding:18px 16px 96px;}
 
 /* 顶部导航（胶囊滚动） */
 .nav{
-  position:sticky;top:0;z-index:20;backdrop-filter:saturate(180%) blur(20px);
-  background:rgba(10,11,30,.8);border-bottom:1px solid var(--line);
-  box-shadow: 0 4px 20px rgba(0,0,0,.2);
-  transition: all var(--animation-speed) ease;
+  position:sticky;top:0;z-index:20;
+  background:rgba(10,11,30,.92);border-bottom:1px solid var(--line);
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  transition: background var(--animation-speed) ease, box-shadow var(--animation-speed) ease;
 }
 .nav:hover {
   background:rgba(15,17,30,.9);
@@ -177,21 +100,14 @@ h2{
 h2 .dot{
   width:12px;height:12px;border-radius:50%;
   background:linear-gradient(135deg,var(--brand),var(--brand2));
-  box-shadow:0 0 20px rgba(106,166,255,.8), 0 0 40px rgba(106,166,255,.4);
-  animation: pulse-dot 2s ease-in-out infinite;
-}
-@keyframes pulse-dot {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.2); opacity: 0.8; }
 }
 
 /* 玻璃卡片 */
 .card{
-  background:linear-gradient(135deg,var(--glass),rgba(255,255,255,.06));
-  border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--line);border-radius:var(--radius);
   padding:20px;margin-bottom:20px;
-  backdrop-filter: blur(20px);
-  transition: all var(--animation-speed) ease;
+  transition: transform .2s ease, box-shadow .2s ease;
   position: relative;
   overflow: hidden;
 }
@@ -207,9 +123,9 @@ h2 .dot{
   transition: opacity var(--animation-speed) ease;
 }
 .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 25px 50px rgba(0,0,0,.4), 0 0 0 1px rgba(255,255,255,.1);
-  border-color: rgba(106,166,255,.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.18);
+  border-color: rgba(106,166,255,.22);
 }
 .card:hover::before {
   opacity: 1;
@@ -218,42 +134,20 @@ h2 .dot{
 /* 英雄区 */
 .hero{
   position:relative;padding:24px;border-radius:24px;
-  background:
-    linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05)),
-    radial-gradient(1400px 320px at -15% -15%, rgba(106,166,255,.25), transparent 65%),
-    radial-gradient(1400px 320px at 115% 115%, rgba(168,121,255,.2), transparent 65%),
-    radial-gradient(800px 200px at 50% 50%, rgba(19,227,178,.1), transparent 70%);
-  border:1px solid var(--line);box-shadow:var(--shadow);margin-top:16px;
-  backdrop-filter: blur(25px);
-  transition: all var(--animation-speed) ease;
+  background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.04));
+  border:1px solid var(--line);margin-top:16px;
+  transition: transform var(--animation-speed) ease, box-shadow var(--animation-speed) ease;
   overflow: hidden;
 }
-.hero::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(from 0deg, transparent, rgba(106,166,255,.1), transparent);
-  animation: rotate 20s linear infinite;
-  opacity: 0.3;
-  pointer-events: none;
-}
+/* 移除旋转渐变与重型 hover 阴影 */
 .hero:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 30px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.15);
-}
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,.22);
 }
 .hero-top{display:flex;gap:16px;align-items:center}
 .avatar-ring{
   position:relative;width:120px;height:120px;border-radius:50%;
-  padding:4px;background:conic-gradient(from 120deg,var(--brand),var(--brand2),var(--accent),var(--brand));
-  animation: rotate-border 3s linear infinite;
-  box-shadow: 0 0 30px rgba(106,166,255,.5), 0 0 60px rgba(168,121,255,.3);
+  padding:4px;background:linear-gradient(135deg,var(--brand),var(--brand2));
 }
 .avatar-ring img{
   width:100%;height:100%;object-fit:cover;border-radius:50%;
@@ -262,10 +156,7 @@ h2 .dot{
 .avatar-ring:hover img {
   transform: scale(1.05);
 }
-@keyframes rotate-border {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+/* 移除边框旋转动画 */
 .subtitle{
   color:var(--muted);font-size:14px;margin-top:6px;font-weight:400;
   line-height: 1.5;
@@ -273,9 +164,8 @@ h2 .dot{
 .badges{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
 .badge{
   font-size:12px;font-weight:500;color:var(--muted);padding:8px 12px;border-radius:999px;
-  border:1px solid var(--line);background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.04));
-  backdrop-filter: blur(10px);
-  transition: all var(--animation-speed) ease;
+  border:1px solid var(--line);background:rgba(255,255,255,.05);
+  transition: color var(--animation-speed) ease, border-color var(--animation-speed) ease;
   position: relative;
   overflow: hidden;
 }
@@ -303,6 +193,14 @@ h2 .dot{
 .wave{height:38px;overflow:hidden;margin:6px -6px;}
 .wave svg{display:block;width:110%;height:100%;}
 
+/* 降低布局与绘制成本：对大块内容启用可见性裁剪 */
+.card, .hero, .pics, .timeline, .phone { content-visibility:auto; contain: content; contain-intrinsic-size: 600px; }
+
+/* 如果用户偏好减少动效，基本关闭动画 */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
 /* 列表 */
 ul.list{margin:8px 0 0;padding-left:18px}
 .list li{margin:6px 0}
@@ -318,7 +216,7 @@ ul.list{margin:8px 0 0;padding-left:18px}
 /* 手机模型框（展示抖音主页） */
 .phone{
   position:relative;margin:0 auto;border-radius:28px;border:1px solid var(--line);
-  background:#000;box-shadow:0 14px 30px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.04);
+  background:#000;box-shadow:0 6px 16px rgba(0,0,0,.35);
   overflow:hidden;width:min(92vw,420px);aspect-ratio:9/19.5;
 }
 .phone:before{
@@ -335,9 +233,8 @@ ul.list{margin:8px 0 0;padding-left:18px}
 .cta{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
 .btn{
   flex:1;text-align:center;padding:14px 16px;border-radius:16px;font-weight:600;font-size:15px;
-  border:1px solid var(--line);background:linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.05));
-  backdrop-filter: blur(15px);
-  transition: all var(--animation-speed) ease;
+  border:1px solid var(--line);background:rgba(255,255,255,.06);
+  transition: transform var(--animation-speed) ease, box-shadow var(--animation-speed) ease, background var(--animation-speed) ease;
   position: relative;
   overflow: hidden;
   cursor: pointer;
@@ -376,10 +273,10 @@ ul.list{margin:8px 0 0;padding-left:18px}
 .sticky-bar{
   position:fixed;left:16px;right:16px;bottom:16px;z-index:30;
   display:flex;gap:12px;align-items:center;
-  background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.06));
-  border:1px solid var(--line);backdrop-filter:saturate(180%) blur(20px);
-  padding:14px;border-radius:18px;box-shadow:var(--shadow);
-  transition: all var(--animation-speed) ease;
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--line);
+  padding:14px;border-radius:18px;box-shadow:0 6px 16px rgba(0,0,0,.22);
+  transition: transform var(--animation-speed) ease, box-shadow var(--animation-speed) ease;
 }
 .sticky-bar:hover {
   transform: translateY(-2px);
@@ -403,7 +300,6 @@ ul.list{margin:8px 0 0;padding-left:18px}
 }
 .sbtn.ghost{
   border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);
-  backdrop-filter: blur(10px);
 }
 .sbtn.ghost:hover {
   background:rgba(255,255,255,.1);
@@ -418,14 +314,13 @@ ul.list{margin:8px 0 0;padding-left:18px}
 .anchor{scroll-margin-top:78px}
 
 /* 细节微交互 */
-.card, .hero, .phone, .pic{transition:transform .2s ease, box-shadow .2s ease}
+.card, .hero, .phone, .pic{transition:transform .2s ease, box-shadow .2s ease; content-visibility:auto; contain:content; contain-intrinsic-size: 600px}
 .card:active, .hero:active, .phone:active, .pic:active{transform:scale(.995)}
 .footer{color:var(--muted);text-align:center;font-size:12px;margin-top:18px}
 </style>
 </head>
-<body class="bg-blur">
-  <!-- 粒子背景效果 -->
-  <div class="particles" id="particles"></div>
+<body>
+  
   
   <!-- 顶部胶囊导航 -->
   <nav class="nav">
@@ -444,7 +339,7 @@ ul.list{margin:8px 0 0;padding-left:18px}
     <!-- 英雄区 -->
     <section id="about" class="hero anchor">
       <div class="hero-top">
-        <div class="avatar-ring"><img src="photo.jpg" alt="阿文 个人头像"></div>
+        <div class="avatar-ring"><img src="photo.jpg" alt="阿文 个人头像" decoding="async"></div>
         <div>
           <h1>00后AI教育创业者 & IP全案操盘手</h1>
           <div class="subtitle">内容冷启动 · 直播与私域闭环 · 资源整合 · 创业生态</div>
@@ -546,8 +441,8 @@ ul.list{margin:8px 0 0;padding-left:18px}
     <section id="photos" class="card anchor">
       <h2><span class="dot"></span>📷 我的照片</h2>
       <div class="pics">
-        <figure class="pic"><img src="photo.jpg" alt="照片1：工作与授课"><figcaption style="color:var(--muted);text-align:center;margin:6px 0 2px;font-size:12px">工作与授课现场</figcaption></figure>
-        <figure class="pic"><img src="photo2.jpg" alt="照片2：生活与演讲"><figcaption style="color:var(--muted);text-align:center;margin:6px 0 2px;font-size:12px">生活与演讲瞬间</figcaption></figure>
+        <figure class="pic"><img src="photo.jpg" alt="照片1：工作与授课" loading="lazy" decoding="async"><figcaption style="color:var(--muted);text-align:center;margin:6px 0 2px;font-size:12px">工作与授课现场</figcaption></figure>
+        <figure class="pic"><img src="photo2.jpg" alt="照片2：生活与演讲" loading="lazy" decoding="async"><figcaption style="color:var(--muted);text-align:center;margin:6px 0 2px;font-size:12px">生活与演讲瞬间</figcaption></figure>
       </div>
     </section>
 
@@ -555,7 +450,7 @@ ul.list{margin:8px 0 0;padding-left:18px}
     <section id="douyin" class="card anchor">
       <h2><span class="dot"></span>📱 抖音账号主页</h2>
       <div class="phone" aria-label="抖音主页预览">
-        <img src="account1.jpg" alt="抖音账号主页截图">
+        <img src="account1.jpg" alt="抖音账号主页截图" loading="lazy" decoding="async">
       </div>
       <div class="cta">
         <a class="btn primary" href="#about">回到顶部</a>
@@ -582,60 +477,22 @@ function scrollToSection(id){
   if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-// 创建粒子背景效果
-function createParticles() {
-  const particlesContainer = document.getElementById('particles');
-  const particleCount = 50;
-  
-  for (let i = 0; i < particleCount; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'particle';
-    
-    // 随机大小
-    const size = Math.random() * 4 + 2;
-    particle.style.width = size + 'px';
-    particle.style.height = size + 'px';
-    
-    // 随机位置
-    particle.style.left = Math.random() * 100 + '%';
-    particle.style.top = Math.random() * 100 + '%';
-    
-    // 随机动画延迟
-    particle.style.animationDelay = Math.random() * 6 + 's';
-    particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
-    
-    particlesContainer.appendChild(particle);
-  }
-}
-
-// 滚动视差效果
-function initParallax() {
-  const parallaxElements = document.querySelectorAll('.card, .hero');
-  
-  window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const rate = scrolled * -0.5;
-    
-    parallaxElements.forEach((element, index) => {
-      const speed = (index + 1) * 0.1;
-      element.style.transform = `translateY(${rate * speed}px)`;
-    });
-  });
-}
+// 已移除粒子与视差效果以提升移动端流畅度
 
 // 添加滚动时的导航栏效果
 function initNavbarEffect() {
   const nav = document.querySelector('.nav');
-  
-  window.addEventListener('scroll', () => {
+  const throttle = (fn, wait=150)=>{let t=0;return(...a)=>{const n=Date.now();if(n-t>wait){t=n;fn(...a);}}};
+  const onScroll = throttle(() => {
     if (window.scrollY > 100) {
       nav.style.background = 'rgba(10,11,30,.95)';
-      nav.style.boxShadow = '0 8px 30px rgba(0,0,0,.3)';
+      nav.style.boxShadow = '0 6px 18px rgba(0,0,0,.22)';
     } else {
-      nav.style.background = 'rgba(10,11,30,.8)';
-      nav.style.boxShadow = '0 4px 20px rgba(0,0,0,.2)';
+      nav.style.background = 'rgba(10,11,30,.92)';
+      nav.style.boxShadow = '0 2px 8px rgba(0,0,0,.15)';
     }
-  });
+  }, 160);
+  window.addEventListener('scroll', onScroll, {passive:true});
 }
 
 // 添加元素进入视口时的动画效果
@@ -665,8 +522,6 @@ function initScrollAnimations() {
 
 // 页面加载完成后初始化所有效果
 document.addEventListener('DOMContentLoaded', function() {
-  createParticles();
-  initParallax();
   initNavbarEffect();
   initScrollAnimations();
   
@@ -678,29 +533,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }, 100);
 });
 
-// 添加鼠标跟随光晕效果
-document.addEventListener('mousemove', function(e) {
-  const cursor = document.querySelector('.cursor-glow');
-  if (!cursor) {
-    const newCursor = document.createElement('div');
-    newCursor.className = 'cursor-glow';
-    newCursor.style.cssText = `
-      position: fixed;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(106,166,255,.1) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: -1;
-      transition: all 0.3s ease;
-    `;
-    document.body.appendChild(newCursor);
-  }
-  
-  const glow = document.querySelector('.cursor-glow');
-  glow.style.left = e.clientX - 150 + 'px';
-  glow.style.top = e.clientY - 150 + 'px';
-});
+// 移除鼠标光晕效果（移动端无意义且消耗性能）
 </script>
 </body>
 </html>
